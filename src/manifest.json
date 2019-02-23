@@ -1,6 +1,6 @@
 {
-  "name": "preactMatrix",
-  "short_name": "preactMatrix",
+  "name": "hello-preact",
+  "short_name": "hello-preact",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

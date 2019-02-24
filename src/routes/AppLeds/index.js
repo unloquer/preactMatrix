@@ -3,10 +3,33 @@ import RowLeft from './RowLeft';
 import RowRight from './RowRight';
 import Matrix from './Matrix';
 import EnvioAlerta from './EnvioAlerta';
-import { alertas } from '../../alertas';
+// import { alertas } from '../../alertas';
 import style from './style';
 
 import Led from './Led';
+
+const alertas = [
+	{
+		id: 0,
+		color: 'rojo'
+	},
+	{
+		id: 1,
+		color: 'verde'
+	},
+	{
+		id: 2,
+		color: 'amarillo'
+	},
+	{
+		id: 3,
+		color: 'violeta'
+	},
+	{
+		id: 4,
+		color: 'naranja'
+	}
+];
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class AppLeds extends Component {
@@ -16,7 +39,6 @@ export default class AppLeds extends Component {
 		this.connection = null;
 	
 		this.state = {
-		  alertas,
 		  currentIndex: 0,
 		  translateValue: 0,
 		  matrices: [new Array(64),new Array(64),new Array(64),new Array(64),new Array(64)],
@@ -114,14 +136,19 @@ export default class AppLeds extends Component {
 							transition: 'transform ease-out 0.45s'
 						}}
 						>
-							{/* map debe recorrer alertas */}
-							{ ['rojo'].map( (alerta,index) => (
+							{ /*Object.keys(alertas).map( (alerta, idx) => (
 								<Matrix
+									key={idx}
 									reciboStateLeds={this.reciboStateLeds}
-									key={index}
-									alerta={alerta}
+									alerta={alerta.color}
 								/>
-						  )) }
+							)) */}
+							<Matrix
+								key="1"
+								idMatrix="1"
+								reciboStateLeds={this.reciboStateLeds}
+								alerta="rojo"
+							/>
 						</div>
 						<div style={{ display: 'flex' }}>
 							<RowLeft

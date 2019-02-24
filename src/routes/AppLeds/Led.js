@@ -6,55 +6,49 @@ class Led extends Component {
 		super(props);
 		this.state = {
 			KeyLed: props.keyid,
-			color: 1,
+			color: 0,
 			alerta: ' '
 			// coloresLeds: [ ]
 		};
 
-        
 		this.coloresLeds = [
 			' ',
 			' '
 		];
         
-        
 		this.changeColor = () => {
+
+			
 			let estadoActualLed = this.state.color;
+			console.log('estado actual del led', this.state.color)
+			
 			// recorro el array cuando se hace click
+			/*
 			this.setState({
-                // color: ( estadoActualLed + 1 ) % this.state.coloresLeds.length // WARNING
-                color: ( estadoActualLed + 1 ) % this.coloresLeds.length 
+				// color: ( estadoActualLed + 1 ) % this.state.coloresLeds.length // WARNING
+				// color: ( this.state.color + 1 ) % this.coloresLeds.length
+				color: ( this.state.color + 1 ) % 2
 			});
-            
+			*/
+            /*
 			const { keyid } = this.props;
 
 			this.props.reciboEstadoLed(keyid, estadoActualLed);
+			*/
 		};
+
         
 		this.fijoColores = () => {
 			const alertas = this.props.alerta;
 			this.setState({ alerta: alertas });
-			console.log(this.state.alerta);
+			console.log('Alertas que entran', this.state.alerta);
 
 			const prevColor = ['dummy', 'dummy'];
 
 			if ( (this.state.keyLed <= 63) && (alertas === 'rojo') ) {
-
-				/*
-                push array with form prevcolor with colors leds
-                */
-
-                
+				/* push array with form prevcolor with colors leds */
 				this.coloresLeds[1] = 'transparente';
 				this.coloresLeds[0] = 'rojo';
-                
-				// solution ????
-				/*
-                this.setState({
-                    coloresLeds[1]: 'transparente',
-                    coloresLeds[0]:'rojo',
-                })
-                */
 			}
 
 			/*
@@ -79,8 +73,8 @@ class Led extends Component {
         
 	}
 
-	componentDidMount() {
-		this.fijoColores();
+	componentDidMount(prevState) {
+		this.fijoColores(prevState);
 	}
     
 	render(props, state) {
@@ -91,6 +85,9 @@ class Led extends Component {
 		const cambio = `${style.botones}`;
         
 		//console.log(this.coloresLeds[state.color]);
+
+		console.log('props que entran en led', props)
+
 		return (
 		//let nombre = this.props.leds;
 			<div class={style.envLed} key={props.key}>

@@ -3,7 +3,6 @@ import RowLeft from './RowLeft';
 import RowRight from './RowRight';
 import Matrix from './Matrix';
 import EnvioAlerta from './EnvioAlerta';
-// import { alertas } from '../../alertas';
 import style from './style';
 
 import Led from './Led';
@@ -46,14 +45,10 @@ export default class AppLeds extends Component {
 		};
 
 		this.reciboStateLeds = (estadoLeds) => {
-			console.log('estado de los leds', estadoLeds.ledsState[0]);
 			if (this.connection) {
 			  // this.connection.send(estadoLeds.ledsState);
 			}
-	
-			this.setState({
-				  estadomatrix: estadoLeds.ledsState
-			});
+			this.setState({ estadomatrix: estadoLeds.ledsState });
 		};
 
 		this.initSocket = () => {
@@ -114,10 +109,7 @@ export default class AppLeds extends Component {
 			};
 
 			this.slideHeight = () => document.querySelector('.Matrix').clientHeight;
-
 		};
-
-
 	}
 
 	/*

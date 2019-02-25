@@ -5,93 +5,79 @@ class Led extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			KeyLed: props.keyid,
+			ledkeyId: 0,
 			color: 0,
-			alerta: ' '
-			// coloresLeds: [ ]
+			alerta: ' ',
+			coloresLeds: { }
 		};
 
-		this.coloresLeds = [
-			' ',
-			' '
-		];
-        
 		this.changeColor = () => {
+			this.setState({ color: ( this.state.color + 1 ) % 2 });
 
+			// codigo viejo
+			// color: ( estadoActualLed + 1 ) % this.state.coloresLeds.length
+			// color: ( this.state.color + 1 ) % this.coloresLeds.length
 			
-			let estadoActualLed = this.state.color;
-			console.log('estado actual del led', this.state.color)
-			
-			// recorro el array cuando se hace click
-			/*
-			this.setState({
-				// color: ( estadoActualLed + 1 ) % this.state.coloresLeds.length // WARNING
-				// color: ( this.state.color + 1 ) % this.coloresLeds.length
-				color: ( this.state.color + 1 ) % 2
-			});
-			*/
-            /*
-			const { keyid } = this.props;
-
-			this.props.reciboEstadoLed(keyid, estadoActualLed);
-			*/
+			this.props.reciboEstadoLed(this.state.ledkeyId, this.state.color);
 		};
-
         
 		this.fijoColores = () => {
-			const alertas = this.props.alerta;
-			this.setState({ alerta: alertas });
-			console.log('Alertas que entran', this.state.alerta);
 
-			const prevColor = ['dummy', 'dummy'];
+			const { alerta, keyid }  = this.props;
+			this.setState({ alerta });
+			this.setState({ ledkeyId: keyid });
 
-			if ( (this.state.keyLed <= 63) && (alertas === 'rojo') ) {
-				/* push array with form prevcolor with colors leds */
-				this.coloresLeds[1] = 'transparente';
-				this.coloresLeds[0] = 'rojo';
-			}
-
+			if ( alerta === 'rojo' ) {
+				this.setState({
+					coloresLeds: {
+						...this.state.coloresLeds,
+						uno: 'transparent',
+						dos: 'red'
+					}
+				});
+			};
 			/*
-			else if (  (this.state.keyLed <= 63) && (alertas === 'verde') ) {
+			else if (  (this.state.ledkeyId <= 63) && (alertas === 'verde') ) {
 				this.coloresLeds[1] = 'transparente';
 				this.coloresLeds[0] = 'verde';
 			}
-			else if (  (this.state.keyLed <= 63) && (alertas === 'amarillo') ) {
+			else if (  (this.state.ledkeyId <= 63) && (alertas === 'amarillo') ) {
 				this.coloresLeds[1] = 'transparente';
 				this.coloresLeds[0] = 'amarillo';
 			}
-			else if (  (this.state.keyLed <= 63) && (alertas === 'naranja') ) {
+			else if (  (this.state.ledkeyId <= 63) && (alertas === 'naranja') ) {
 				this.coloresLeds[1] = 'transparente';
 				this.coloresLeds[0] = 'naranja';
 			}
-			else if (  (this.state.keyLed <= 63) && (alertas === 'violeta') ) {
+			else if (  (this.state.ledkeyId <= 63) && (alertas === 'violeta') ) {
 				this.coloresLeds[1] = 'transparente';
 				this.coloresLeds[0] = 'violeta';
             }
             */
 		};
-        
 	}
 
-	componentDidMount(prevState) {
-		this.fijoColores(prevState);
+	componentWillMount() {
+		this.fijoColores();
 	}
-    
+
 	render(props, state) {
-		// const estado = this.coloresLeds[state.color];
+		const { coloresLeds } = state;
 
-
-		// const cambio = `${style.botones} ${estado}`;
-		const cambio = `${style.botones}`;
-        
-		//console.log(this.coloresLeds[state.color]);
-
-		console.log('props que entran en led', props)
+		let cambio = '';
+		
+		if ( state.color === 0 ) {
+			cambio = `${coloresLeds.uno}`;
+		} else {
+			cambio = `${coloresLeds.dos}`;
+		}
 
 		return (
-		//let nombre = this.props.leds;
 			<div class={style.envLed} key={props.key}>
-				<p class={style.botones} onClick={this.changeColor} />
+				<p class={`${style.botones}`} 
+					onClick={this.changeColor} 
+					style={{ backgroundColor: `${cambio}` }}
+				/>
 			</div>
 		);
 	}

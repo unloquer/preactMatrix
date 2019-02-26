@@ -11,7 +11,6 @@ class Matrix extends Component {
 		this.state = {
 			// ledsState: new Array(64).fill(0),
 			ledsState: { keyid: 0, estadoled: 0 },
-			ledColor: '',
 			alerta: props.alerta
 		};
 		
@@ -43,13 +42,6 @@ class Matrix extends Component {
 			*/
 		};
 	}
-
-	/*
-	componentWillUpdate() {
-		// eslint-disable-next-line no-undef
-		this.setState({ ledColor: this.props.alerta });
-	}
-	*/
 			
 	render(props, state) {
 		return (

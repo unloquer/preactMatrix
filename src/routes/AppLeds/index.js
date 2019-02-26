@@ -119,6 +119,7 @@ export default class AppLeds extends Component {
 	*/
 
 	render(props, state) {
+		console.log('')
 		return (
 			<div class={style.home}>
 				<div class={style.content}>
@@ -128,19 +129,14 @@ export default class AppLeds extends Component {
 							transition: 'transform ease-out 0.45s'
 						}}
 						>
-							{ /*Object.keys(alertas).map( (alerta, idx) => (
+							{([{ id: 0, color: 'rojo' }]).map(alerta => (
 								<Matrix
-									key={idx}
+									key={alerta.id}
+									idMatrix={alerta.id}
 									reciboStateLeds={this.reciboStateLeds}
 									alerta={alerta.color}
 								/>
-							)) */}
-							<Matrix
-								key="1"
-								idMatrix="1"
-								reciboStateLeds={this.reciboStateLeds}
-								alerta="rojo"
-							/>
+							))}
 						</div>
 						<div style={{ display: 'flex' }}>
 							<RowLeft
@@ -159,3 +155,11 @@ export default class AppLeds extends Component {
 	}
 }
 
+/*
+<Matrix
+key="1"
+idMatrix="1"
+reciboStateLeds={this.reciboStateLeds}
+alerta="rojo"
+/>
+*/

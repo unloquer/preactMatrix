@@ -3,7 +3,7 @@ import style from './style';
 
 const RowRight = props => (
 
-	<div class={style.backArrow}
+	<div class={style.backArrowRight}
 		onClick={props.irAlaSiguiente}
 	>
 		<img class={style.pic}

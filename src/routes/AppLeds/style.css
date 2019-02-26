@@ -43,7 +43,11 @@
   div.Matrix{
     display: inline-block;
     height: 100%;
-    width: 100%;
+    padding:2px 2px;
+    width: 98%;
+    position: relative;
+    left:2px;
+    top:2px;
   }
   
   div:focus{
@@ -53,7 +57,7 @@
   .botones{
     width: 26px;
     height: 26px;
-    margin: 8px auto;
+    margin: 7px auto;
     border-radius: 50%;
     cursor: pointer;
     background: white;
@@ -66,7 +70,8 @@
     display: inline-block;
     margin: 0px 2px;
     cursor: initial;
-    border:1px solid black
+    border:1px solid black;
+    border-radius: 8px;
   }
   
   .footer{
@@ -130,10 +135,18 @@
     cursor: pointer;
   }
   
-  .backArrow {
-    position: absolute;
-    top: 87%;
-    left: 25px;
+  .backArrowLeft {
+    position: relative;
+    bottom: 55px;
+    left: 10px;
+    z-index: 999;
+    cursor: pointer;
+  }
+
+  .backArrowRight {
+    position: relative;
+    bottom: 55px;
+    left: 113px;
     z-index: 999;
     cursor: pointer;
   }
@@ -147,9 +160,9 @@
   }
   
   .botonAlerta{
-    position: absolute;
-    top: 88%;
-    left: 102px;
+    position: relative;
+    bottom: 51px;
+    left: 61px;
     z-index: 999;
     cursor: pointer;
     width: 173px;

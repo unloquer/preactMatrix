@@ -31,7 +31,7 @@ class Led extends Component {
 				this.setState({
 					coloresLeds: {
 						...this.state.coloresLeds,
-						uno: 'transparent',
+						uno: 'white',
 						dos: 'red'
 					}
 				});
@@ -74,8 +74,8 @@ class Led extends Component {
 
 		return (
 			<div class={style.envLed} key={props.key}>
-				<p class={`${style.botones}`} 
-					onClick={this.changeColor} 
+				<p class={`${style.botones}`}
+					onClick={this.changeColor}
 					style={{ backgroundColor: `${cambio}` }}
 				/>
 			</div>

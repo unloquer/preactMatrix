@@ -1,6 +1,8 @@
 # preactMatrix
 
-## CLI Commands
+> Proyecto que contiene la UI para controlar la matriz de leds del kit AQA didáctico.
+
+## CLI Commada 
 
 ``` bash
 # install dependencies
@@ -18,5 +20,3 @@ npm run serve
 # run tests with jest and preact-render-spy 
 npm run test
 ```
-
-For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).

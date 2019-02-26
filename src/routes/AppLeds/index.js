@@ -5,8 +5,7 @@ import Matrix from './Matrix';
 import EnvioAlerta from './EnvioAlerta';
 import style from './style';
 
-import Led from './Led';
-
+/*
 const alertas = [
 	{
 		id: 0,
@@ -29,20 +28,30 @@ const alertas = [
 		color: 'naranja'
 	}
 ];
+*/
 
-// eslint-disable-next-line react/prefer-stateless-function
 export default class AppLeds extends Component {
 	constructor(){
 		super();
-	
 		this.connection = null;
-	
+
 		this.state = {
 		  currentIndex: 0,
 		  translateValue: 0,
 		  matrices: [new Array(64),new Array(64),new Array(64),new Array(64),new Array(64)],
 		  estadomatrix: new Array(64)
 		};
+		
+		this.alertas = [
+			{
+				id: 0,
+				color: 'red'
+			},
+			{
+				id: 1,
+				color: 'green'
+			}
+		];
 
 		this.reciboStateLeds = (estadoLeds) => {
 			if (this.connection) {
@@ -88,28 +97,29 @@ export default class AppLeds extends Component {
 			if (this.connection) {
 			  this.connection.send(matrix);
 			}
-
-			this.irAlaAnterior = () => {
-				if (this.state.currentIndex === 0) return;
-			
-				this.setState(prevState => ({
-					currentIndex: prevState.currentIndex - 1,
-					translateValue: prevState.translateValue + this.slideHeight()
-				}));
-			};
-			
-			this.irAlaSiguiente = () => {
-				// si nos salimos del total de images, entonces volvemos a cero
-				if (this.state.currentIndex === this.state.alertas.length - 1) {
-					return this.setState({
-						currentIndex: 0,
-						translateValue: 0
-					});
-				}
-			};
-
-			this.slideHeight = () => document.querySelector('.Matrix').clientHeight;
 		};
+
+		this.irAlaAnterior = () => {			
+			if (this.state.currentIndex === 0) return;
+			/*
+			this.setState(prevState => ({
+				currentIndex: prevState.currentIndex - 1,
+				translateValue: prevState.translateValue + this.slideHeight()
+			}));
+			*/
+		};
+		
+		this.irAlaSiguiente = () => {
+			// si nos salimos del total de images, entonces volvemos a cero
+			if (this.state.currentIndex === this.alertas.length - 1) {
+				return this.setState({
+					currentIndex: 0,
+					translateValue: 0
+				});
+			}
+		};
+
+		this.slideHeight = () => document.querySelector('.Matrix').clientHeight; // error, no get height !!!!
 	}
 
 	/*
@@ -119,7 +129,8 @@ export default class AppLeds extends Component {
 	*/
 
 	render(props, state) {
-		console.log('')
+		console.log('current Index', state.currentIndex)
+		console.log('translatevalue', state.translateValue)
 		return (
 			<div class={style.home}>
 				<div class={style.content}>
@@ -129,7 +140,7 @@ export default class AppLeds extends Component {
 							transition: 'transform ease-out 0.45s'
 						}}
 						>
-							{([{ id: 0, color: 'rojo' }]).map(alerta => (
+							{this.alertas.map(alerta => (
 								<Matrix
 									key={alerta.id}
 									idMatrix={alerta.id}
@@ -145,7 +156,6 @@ export default class AppLeds extends Component {
 							<EnvioAlerta
 								actualizoMatrices={this.actualizoMatrices}
 							/>
-					
 							<RowRight irAlaSiguiente={this.irAlaSiguiente} />
 						</div>
 					</div>
@@ -154,12 +164,3 @@ export default class AppLeds extends Component {
 		);
 	}
 }
-
-/*
-<Matrix
-key="1"
-idMatrix="1"
-reciboStateLeds={this.reciboStateLeds}
-alerta="rojo"
-/>
-*/

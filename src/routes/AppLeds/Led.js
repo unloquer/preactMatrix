@@ -27,7 +27,7 @@ class Led extends Component {
 			this.setState({ alerta });
 			this.setState({ ledkeyId: keyid });
 
-			if ( alerta === 'rojo' ) {
+			if ( alerta === 'red' ) {
 				this.setState({
 					coloresLeds: {
 						...this.state.coloresLeds,
@@ -35,12 +35,18 @@ class Led extends Component {
 						dos: 'red'
 					}
 				});
-			};
-			/*
-			else if (  (this.state.ledkeyId <= 63) && (alertas === 'verde') ) {
-				this.coloresLeds[1] = 'transparente';
-				this.coloresLeds[0] = 'verde';
 			}
+			else {
+				this.setState({
+					coloresLeds: {
+						...this.state.coloresLeds,
+						uno: 'white',
+						dos: 'green'
+					}
+				});
+			}
+
+			/*
 			else if (  (this.state.ledkeyId <= 63) && (alertas === 'amarillo') ) {
 				this.coloresLeds[1] = 'transparente';
 				this.coloresLeds[0] = 'amarillo';
@@ -68,7 +74,8 @@ class Led extends Component {
 		
 		if ( state.color === 0 ) {
 			cambio = `${coloresLeds.uno}`;
-		} else {
+		}
+		else {
 			cambio = `${coloresLeds.dos}`;
 		}
 

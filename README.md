@@ -2,7 +2,7 @@
 
 > Proyecto que contiene la UI para controlar la matriz de leds del kit AQA didáctico.
 
-## CLI Commada 
+## CLI Commands
 
 ``` bash
 # install dependencies

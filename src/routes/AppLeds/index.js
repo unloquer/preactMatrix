@@ -45,11 +45,23 @@ export default class AppLeds extends Component {
 		this.alertas = [
 			{
 				id: 0,
-				color: 'red'
+				color: 'green'
 			},
 			{
 				id: 1,
-				color: 'green'
+				color: 'orange'
+			},
+			{
+				id: 2,
+				color: 'violet'
+			},
+			{
+				id: 3,
+				color: 'red'
+			},
+			{
+				id: 4,
+				color: 'blue'
 			}
 		];
 
@@ -99,24 +111,34 @@ export default class AppLeds extends Component {
 			}
 		};
 
-		this.irAlaAnterior = () => {			
+		this.irAlaAnterior = () => {
 			if (this.state.currentIndex === 0) return;
-			/*
 			this.setState(prevState => ({
-				currentIndex: prevState.currentIndex - 1,
-				translateValue: prevState.translateValue + this.slideHeight()
+				currentIndex: prevState.currentIndex - 1
+				// translateValue: prevState.translateValue + this.slideHeight()
 			}));
-			*/
+			// eslint-disable-next-line no-console
+			console.log('state current Index left', this.state.currentIndex);
+			console.log('slideHeight()', this.slideHeight()) // TODO
 		};
 		
 		this.irAlaSiguiente = () => {
-			// si nos salimos del total de images, entonces volvemos a cero
-			if (this.state.currentIndex === this.alertas.length - 1) {
-				return this.setState({
+			
+			if (this.state.currentIndex === this.alertas.length - 1){
+				this.setState({
 					currentIndex: 0,
-					translateValue: 0
+					translateValue: 0 // este es el valor que se captura con el clienteHeight
 				});
 			}
+				
+			this.setState(prevState => ({
+				currentIndex: prevState.currentIndex + 1,
+				translateValue: 0 // este es el valor que se captura con el clienteHeight
+			}));
+
+			// eslint-disable-next-line no-console
+			console.log('state current Index right', this.state.currentIndex);
+			console.log('slideHeight()', this.slideHeight()) // TODO
 		};
 
 		this.slideHeight = () => document.querySelector('.Matrix').clientHeight; // error, no get height !!!!
@@ -129,8 +151,6 @@ export default class AppLeds extends Component {
 	*/
 
 	render(props, state) {
-		console.log('current Index', state.currentIndex)
-		console.log('translatevalue', state.translateValue)
 		return (
 			<div class={style.home}>
 				<div class={style.content}>

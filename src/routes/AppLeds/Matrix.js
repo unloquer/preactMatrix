@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import Led from './Led';
-import { arrayLeds } from '../../arrayLeds2';
+import { arrayLeds } from '../../arrayLeds';
 import * as R from 'ramda';
 import style from './style';
 

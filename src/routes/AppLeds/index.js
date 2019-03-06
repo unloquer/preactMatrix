@@ -13,39 +13,23 @@ export default class AppLeds extends Component {
 	constructor(){
 		super();
 		this.connection = null;
-
 		this.state = {
 		  currentIndex: 0,
 		  translateValue: 0,
-		  heightMatrix: 0,
+		  widthMatrix: 0,
 		  matrices: [new Array(64),new Array(64),new Array(64),new Array(64),new Array(64)],
 		  estadomatrix: new Array(64)
 		};
 
 		this.alertas = [
-			{
-				id: 1,
-				color: 'green',
-			},
-			{
-				id: 2,
-				color: 'orange',
-			},
-			{
-				id: 3,
-				color: 'violet',
-			},
-			{
-				id: 4,
-				color: 'red',
-			},
-			{
-				id: 5,
-				color: 'yellow',
-			}
+			{ id: 1, color: 'green'  },
+			{ id: 2, color: 'orange' },
+			{ id: 3, color: 'violet' },
+			{ id: 4, color: 'red' },
+			{ id: 5, color: 'yellow' }
 		];
 
-		this.reciboStateLeds = (estadoLeds) => {
+		this.reciboStateLeds = estadoLeds => {
 			if (this.connection) {
 			  // this.connection.send(estadoLeds.ledsState);
 			}
@@ -95,13 +79,11 @@ export default class AppLeds extends Component {
 			if (this.state.currentIndex === 0) return;
 			this.setState(prevState => ({
 				currentIndex: prevState.currentIndex - 1,
-				translateValue: prevState.translateValue + this.state.heightMatrix
+				translateValue: prevState.translateValue + this.state.widthMatrix
 			}));
-
 		};
 		
 		this.irAlaSiguiente = () => {
-			
 			if (this.state.currentIndex === this.alertas.length - 1){
 				return this.setState({
 					currentIndex: 0,
@@ -110,19 +92,19 @@ export default class AppLeds extends Component {
 			}
 			this.setState(prevState => ({
 				currentIndex: prevState.currentIndex + 1,
-				translateValue: prevState.translateValue + (-this.state.heightMatrix)
+				translateValue: prevState.translateValue + (-this.state.widthMatrix)
 			}));
 		};
 
-		this.setHeight = (refMatrix) => {
+		this.setWidth = refMatrix => {
 			if(refMatrix === undefined) return null
-			this.setState({  heightMatrix: refMatrix.base.clientHeight })
+			this.setState({  widthMatrix: refMatrix.base.clientWidth })
 		}
 
 	}
 
 	componentDidMount(){
-		this.setHeight(this.ref) // access ref matrix
+		this.setWidth(this.ref) // access ref matrix
 		// this.initSocket()
 	}
 
@@ -134,7 +116,7 @@ export default class AppLeds extends Component {
 				<div class={style.content}>
 					<div class={style.slider}>
 						<div class={style.sliderWrapper} style={{
-							transform: `translateY(${state.translateValue}px)`,
+							transform: `translateX(${state.translateValue}px)`,
 							transition: 'transform ease-out 0.45s'
 						}}
 						>

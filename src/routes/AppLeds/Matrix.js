@@ -53,7 +53,7 @@ class Matrix extends Component {
 		return (
 			<div class={style.Matrix} key={props.idMatrix}>
 				{
-					Object.keys(arrayLeds).map((value,index) => (
+					Object.keys(arrayLeds).map((value,index) => ( // value no write ???
 						<Led
 							key={index}
 							keyid={index}

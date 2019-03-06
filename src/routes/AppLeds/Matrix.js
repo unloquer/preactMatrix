@@ -51,6 +51,7 @@ class Matrix extends Component {
 
 	render(props, state) {
 		return (
+			
 			<div class={style.Matrix} key={props.idMatrix}>
 				{
 					Object.keys(arrayLeds).map((value,index) => ( // value no write ???

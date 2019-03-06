@@ -12,17 +12,18 @@ class Led extends Component {
 		};
 
 		this.changeColor = () => {
-			this.setState({ color: ( this.state.color + 1 ) % 2 });
+			const { color, coloresLeds, ledkeyId } = this.state;
+			this.setState({ color: ( color + 1 ) % coloresLeds.length });
 
 			// codigo viejo
 			// color: ( estadoActualLed + 1 ) % this.state.coloresLeds.length
 			// color: ( this.state.color + 1 ) % this.coloresLeds.length
 			
-			this.props.reciboEstadoLed(this.state.ledkeyId, this.state.color);
+			this.props.reciboEstadoLed(ledkeyId, color);
 		};
         
 		this.fijoColores = () => {
-
+			const { coloresLeds } = this.state;
 			const { alerta, keyid }  = this.props;
 			this.setState({ alerta });
 			this.setState({ ledkeyId: keyid });
@@ -30,36 +31,48 @@ class Led extends Component {
 			if ( alerta === 'red' ) {
 				this.setState({
 					coloresLeds: {
-						...this.state.coloresLeds,
+						...coloresLeds,
 						uno: 'white',
 						dos: 'red'
+					}
+				});
+			}
+			else if ( alerta === 'green' ) {
+				this.setState({
+					coloresLeds: {
+						...coloresLeds,
+						uno: 'white',
+						dos: 'green'
+					}
+				});
+			}
+			else if ( alerta === 'yellow' ) {
+				this.setState({
+					coloresLeds: {
+						...coloresLeds,
+						uno: 'white',
+						dos: 'yellow'
+					}
+				});
+			}
+			else if ( alerta === 'orange' ) {
+				this.setState({
+					coloresLeds: {
+						...coloresLeds,
+						uno: 'white',
+						dos: 'orange'
 					}
 				});
 			}
 			else {
 				this.setState({
 					coloresLeds: {
-						...this.state.coloresLeds,
+						...coloresLeds,
 						uno: 'white',
-						dos: 'green'
+						dos: 'violet'
 					}
 				});
 			}
-
-			/*
-			else if (  (this.state.ledkeyId <= 63) && (alertas === 'amarillo') ) {
-				this.coloresLeds[1] = 'transparente';
-				this.coloresLeds[0] = 'amarillo';
-			}
-			else if (  (this.state.ledkeyId <= 63) && (alertas === 'naranja') ) {
-				this.coloresLeds[1] = 'transparente';
-				this.coloresLeds[0] = 'naranja';
-			}
-			else if (  (this.state.ledkeyId <= 63) && (alertas === 'violeta') ) {
-				this.coloresLeds[1] = 'transparente';
-				this.coloresLeds[0] = 'violeta';
-            }
-            */
 		};
 	}
 

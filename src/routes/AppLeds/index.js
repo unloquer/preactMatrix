@@ -1,34 +1,13 @@
+// TODO
+// los colores no se estan pintando en cada matrix
+// revisar nombramiento de variables
+
 import { h, Component } from 'preact';
 import RowLeft from './RowLeft';
 import RowRight from './RowRight';
 import Matrix from './Matrix';
 import EnvioAlerta from './EnvioAlerta';
 import style from './style';
-
-/*
-const alertas = [
-	{
-		id: 0,
-		color: 'rojo'
-	},
-	{
-		id: 1,
-		color: 'verde'
-	},
-	{
-		id: 2,
-		color: 'amarillo'
-	},
-	{
-		id: 3,
-		color: 'violeta'
-	},
-	{
-		id: 4,
-		color: 'naranja'
-	}
-];
-*/
 
 export default class AppLeds extends Component {
 	constructor(){
@@ -38,30 +17,31 @@ export default class AppLeds extends Component {
 		this.state = {
 		  currentIndex: 0,
 		  translateValue: 0,
+		  heightMatrix: 0,
 		  matrices: [new Array(64),new Array(64),new Array(64),new Array(64),new Array(64)],
 		  estadomatrix: new Array(64)
 		};
-		
+
 		this.alertas = [
 			{
-				id: 0,
-				color: 'green'
-			},
-			{
 				id: 1,
-				color: 'orange'
+				color: 'green',
 			},
 			{
 				id: 2,
-				color: 'violet'
+				color: 'orange',
 			},
 			{
 				id: 3,
-				color: 'red'
+				color: 'violet',
 			},
 			{
 				id: 4,
-				color: 'blue'
+				color: 'red',
+			},
+			{
+				id: 5,
+				color: 'yellow',
 			}
 		];
 
@@ -114,43 +94,41 @@ export default class AppLeds extends Component {
 		this.irAlaAnterior = () => {
 			if (this.state.currentIndex === 0) return;
 			this.setState(prevState => ({
-				currentIndex: prevState.currentIndex - 1
-				// translateValue: prevState.translateValue + this.slideHeight()
+				currentIndex: prevState.currentIndex - 1,
+				translateValue: prevState.translateValue + this.state.heightMatrix
 			}));
-			// eslint-disable-next-line no-console
-			console.log('state current Index left', this.state.currentIndex);
-			console.log('slideHeight()', this.slideHeight()) // TODO
+
 		};
 		
 		this.irAlaSiguiente = () => {
 			
 			if (this.state.currentIndex === this.alertas.length - 1){
-				this.setState({
+				return this.setState({
 					currentIndex: 0,
-					translateValue: 0 // este es el valor que se captura con el clienteHeight
+					translateValue: 0				
 				});
 			}
-				
 			this.setState(prevState => ({
 				currentIndex: prevState.currentIndex + 1,
-				translateValue: 0 // este es el valor que se captura con el clienteHeight
+				translateValue: prevState.translateValue + (-this.state.heightMatrix)
 			}));
-
-			// eslint-disable-next-line no-console
-			console.log('state current Index right', this.state.currentIndex);
-			console.log('slideHeight()', this.slideHeight()) // TODO
 		};
 
-		this.slideHeight = () => document.querySelector('.Matrix').clientHeight; // error, no get height !!!!
+		this.setHeight = (refMatrix) => {
+			if(refMatrix === undefined) return null
+			this.setState({  heightMatrix: refMatrix.base.clientHeight })
+		}
+
 	}
 
-	/*
-	componentDidMount() {
-		this.initSocket();
+	componentDidMount(){
+		this.setHeight(this.ref) // access ref matrix
+		// this.initSocket()
 	}
-	*/
 
 	render(props, state) {
+		console.log('currentIndex', state.currentIndex)
+		console.log('translateValue', state.translateValue)
 		return (
 			<div class={style.home}>
 				<div class={style.content}>
@@ -160,12 +138,14 @@ export default class AppLeds extends Component {
 							transition: 'transform ease-out 0.45s'
 						}}
 						>
-							{this.alertas.map(alerta => (
+							{
+								this.alertas.map(alerta => ( // no in alerts in leds ???
 								<Matrix
 									key={alerta.id}
-									idMatrix={alerta.id}
+									idMatrix={alerta.color}
 									reciboStateLeds={this.reciboStateLeds}
 									alerta={alerta.color}
+									ref={ c => this.ref = c }
 								/>
 							))}
 						</div>

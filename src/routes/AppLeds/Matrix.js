@@ -11,21 +11,23 @@ class Matrix extends Component {
 		this.state = {
 			// ledsState: new Array(64).fill(0),
 			ledsState: { keyid: 0, estadoled: 0 },
-			alerta: props.alerta
+			alerta: ''
 		};
+
+		this.setAlerts = () => { this.setState({ alerta: this.props.alerta }); };
 		
 		this.reciboEstadoLed = (keyid,estadoled) => {
-			const alerta = this.props.alerta;
+			const { alerta, ledsState } = this.state;
 			this.setState({
 				ledsState: {
-					...this.state.ledsState,
+					...ledsState,
 					keyid,
 					estadoled
 				}
 			});
 
 			let matrixEstado ={
-				ledState: this.state.ledsState,
+				ledState: ledsState,
 				idMatrix: alerta
 			};
 
@@ -42,7 +44,11 @@ class Matrix extends Component {
 			*/
 		};
 	}
-			
+
+	componentDidMount () {
+		this.setAlerts();
+	}
+
 	render(props, state) {
 		return (
 			<div class={style.Matrix} key={props.idMatrix}>
@@ -52,7 +58,7 @@ class Matrix extends Component {
 							key={index}
 							keyid={index}
 							reciboEstadoLed={this.reciboEstadoLed}
-							alerta={this.state.alerta}
+							alerta={state.alerta}
 						/>
 					))
 				}

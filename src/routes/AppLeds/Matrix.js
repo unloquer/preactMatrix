@@ -51,7 +51,6 @@ class Matrix extends Component {
 
 	render(props, state) {
 		return (
-			
 			<div class={style.Matrix} key={props.idMatrix}>
 				{
 					Object.keys(arrayLeds).map((value,index) => ( // value no write ???
@@ -59,7 +58,7 @@ class Matrix extends Component {
 							key={index}
 							keyid={index}
 							reciboEstadoLed={this.reciboEstadoLed}
-							alerta={state.alerta}
+							alerta={props.alerta}
 						/>
 					))
 				}

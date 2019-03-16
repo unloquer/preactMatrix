@@ -87,7 +87,7 @@ export default class AppLeds extends Component {
 			if (this.state.currentIndex === this.alertas.length - 1){
 				return this.setState({
 					currentIndex: 0,
-					translateValue: 0				
+					translateValue: 0
 				});
 			}
 			this.setState(prevState => ({
@@ -97,20 +97,20 @@ export default class AppLeds extends Component {
 		};
 
 		this.setWidth = refMatrix => {
-			if(refMatrix === undefined) return null
-			this.setState({  widthMatrix: refMatrix.base.clientWidth })
-		}
+			if (refMatrix === undefined) return null;
+			this.setState({  widthMatrix: refMatrix.base.clientWidth });
+		};
 
 	}
 
 	componentDidMount(){
-		this.setWidth(this.ref) // access ref matrix
+		this.setWidth(this.ref); // access ref matrix
 		// this.initSocket()
 	}
 
 	render(props, state) {
-		console.log('currentIndex', state.currentIndex)
-		console.log('translateValue', state.translateValue)
+		// console.log('currentIndex', state.currentIndex);
+		// console.log('translateValue', state.translateValue);
 		return (
 			<div class={style.home}>
 				<div class={style.content}>
@@ -122,14 +122,15 @@ export default class AppLeds extends Component {
 						>
 							{
 								this.alertas.map(alerta => ( // no in alerts in leds ???
-								<Matrix
-									key={alerta.id}
-									idMatrix={alerta.color}
-									reciboStateLeds={this.reciboStateLeds}
-									alerta={alerta.color}
-									ref={ c => this.ref = c }
-								/>
-							))}
+									//console.log('alertas', alerta)
+									<Matrix
+										key={alerta.id}
+										idMatrix={alerta.color}
+										reciboStateLeds={this.reciboStateLeds}
+										alerta={alerta.color}
+										ref={c => this.ref = c}
+									/>
+								))}
 						</div>
 						<div style={{ display: 'flex' }}>
 							<RowLeft

@@ -14,12 +14,10 @@ class Led extends Component {
 		this.changeColor = () => {
 			const { color, coloresLeds, ledkeyId } = this.state;
 			this.setState({ color: ( color + 1 ) % coloresLeds.length });
-
+			this.props.reciboEstadoLed(ledkeyId, color);
 			// codigo viejo
 			// color: ( estadoActualLed + 1 ) % this.state.coloresLeds.length
 			// color: ( this.state.color + 1 ) % this.coloresLeds.length
-			
-			this.props.reciboEstadoLed(ledkeyId, color);
 		};
         
 		this.fijoColores = () => {
@@ -27,7 +25,6 @@ class Led extends Component {
 			const { alerta, keyid }  = this.props;
 			this.setState({ alerta });
 			this.setState({ ledkeyId: keyid });
-
 			if ( alerta === 'red' ) {
 				this.setState({
 					coloresLeds: {

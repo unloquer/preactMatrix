@@ -75,7 +75,7 @@ export default class AppLeds extends Component {
 			}
 		};
 
-		this.irAlaAnterior = () => {
+		this.gotToBack = () => {
 			if (this.state.currentIndex === 0) return;
 			this.setState(prevState => ({
 				currentIndex: prevState.currentIndex - 1,
@@ -83,7 +83,7 @@ export default class AppLeds extends Component {
 			}));
 		};
 		
-		this.irAlaSiguiente = () => {
+		this.gotToNext = () => {
 			if (this.state.currentIndex === this.alertas.length - 1){
 				return this.setState({
 					currentIndex: 0,
@@ -127,19 +127,15 @@ export default class AppLeds extends Component {
 										key={alerta.id}
 										idMatrix={alerta.color}
 										reciboStateLeds={this.reciboStateLeds}
-										alerta={alerta.color}
+										colorMatrix={alerta.color}
 										ref={c => this.ref = c}
 									/>
 								))}
 						</div>
 						<div style={{ display: 'flex' }}>
-							<RowLeft
-								irAlaAnterior={this.irAlaAnterior}
-							/>
-							<EnvioAlerta
-								actualizoMatrices={this.actualizoMatrices}
-							/>
-							<RowRight irAlaSiguiente={this.irAlaSiguiente} />
+							<RowLeft gotToBack={this.gotToBack} />
+							<EnvioAlerta actualizoMatrices={this.actualizoMatrices} />
+							<RowRight gotToNext={this.gotToNext} />
 						</div>
 					</div>
 				</div>

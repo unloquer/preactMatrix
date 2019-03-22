@@ -15,31 +15,6 @@
   font-family: "arial", sans-serif;
 }
 
-.rojo {
-  background-color: red !important;
-}
-
-.verde {
-  background-color: green !important;
-}
-
-.amarillo {
-  background-color: yellow !important;
-}
-
-.naranja {
-  background-color: orange !important;
-}
-
-.violeta {
-  background-color: violet !important;
-}
-
-.transparente {
-  background-color: transparent;
-  color: white;
-}
-
 div.Matrix {
   display: inline-block;
   height: 100%;

@@ -1,72 +1,71 @@
-import { h, Component } from 'preact';
+import { Component } from 'preact';
 import style from './style';
 
 class Led extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			ledkeyId: 0,
-			color: 0,
-			alerta: ' ',
-			coloresLeds: { }
+			ledId: 0,
+			ledOnnOrOff: 0,
+			alertAir: ' ',
+			colorLedOptions: { }
 		};
 
 		this.changeColor = () => {
-			const { color, coloresLeds, ledkeyId } = this.state;
-			this.setState({ color: ( color + 1 ) % coloresLeds.length });
-			this.props.reciboEstadoLed(ledkeyId, color);
-			// codigo viejo
-			// color: ( estadoActualLed + 1 ) % this.state.coloresLeds.length
-			// color: ( this.state.color + 1 ) % this.coloresLeds.length
+			const { ledOnnOrOff, colorLedOptions, ledId } = this.state;
+			this.setState({
+				ledOnnOrOff: ( ledOnnOrOff + 1 ) % (colorLedOptions.length === undefined ? 2 : colorLedOptions.length)
+			});
+			this.props.reciboEstadoLed(ledId, ledOnnOrOff);
 		};
         
-		this.fijoColores = () => {
-			const { coloresLeds } = this.state;
-			const { alerta, keyid }  = this.props;
-			this.setState({ alerta });
-			this.setState({ ledkeyId: keyid });
-			if ( alerta === 'red' ) {
+		this.setColorLed = () => {
+			const { colorLedOptions } = this.state;
+			const { alertAir, keyid }  = this.props;
+			this.setState({ alertAir });
+			this.setState({ ledId: keyid });
+			if ( alertAir === 'red' ) {
 				this.setState({
-					coloresLeds: {
-						...coloresLeds,
-						uno: 'white',
-						dos: 'red'
+					colorLedOptions: {
+						...colorLedOptions,
+						colorOne: 'white',
+						colorTwo: 'red'
 					}
 				});
 			}
-			else if ( alerta === 'green' ) {
+			else if ( alertAir === 'green' ) {
 				this.setState({
-					coloresLeds: {
-						...coloresLeds,
-						uno: 'white',
-						dos: 'green'
+					colorLedOptions: {
+						...colorLedOptions,
+						colorOne: 'white',
+						colorTwo: 'green'
 					}
 				});
 			}
-			else if ( alerta === 'yellow' ) {
+			else if ( alertAir === 'yellow' ) {
 				this.setState({
-					coloresLeds: {
-						...coloresLeds,
-						uno: 'white',
-						dos: 'yellow'
+					colorLedOptions: {
+						...colorLedOptions,
+						colorOne: 'white',
+						colorTwo: 'yellow'
 					}
 				});
 			}
-			else if ( alerta === 'orange' ) {
+			else if ( alertAir === 'orange' ) {
 				this.setState({
-					coloresLeds: {
-						...coloresLeds,
-						uno: 'white',
-						dos: 'orange'
+					colorLedOptions: {
+						...colorLedOptions,
+						colorOne: 'white',
+						colorTwo: 'orange'
 					}
 				});
 			}
 			else {
 				this.setState({
-					coloresLeds: {
-						...coloresLeds,
-						uno: 'white',
-						dos: 'violet'
+					colorLedOptions: {
+						...colorLedOptions,
+						colorOne: 'white',
+						colorTwo: 'violet'
 					}
 				});
 			}
@@ -74,26 +73,26 @@ class Led extends Component {
 	}
 
 	componentWillMount() {
-		this.fijoColores();
+		this.setColorLed();
 	}
 
 	render(props, state) {
-		const { coloresLeds } = state;
-
-		let cambio = '';
+		const { colorLedOptions, ledOnnOrOff } = state;
+		const { key } = props;
+		let changeColorClick = '';
 		
-		if ( state.color === 0 ) {
-			cambio = `${coloresLeds.uno}`;
+		if ( ledOnnOrOff === 0 ) {
+			changeColorClick = `${colorLedOptions.colorOne}`;
 		}
 		else {
-			cambio = `${coloresLeds.dos}`;
+			changeColorClick = `${colorLedOptions.colorTwo}`;
 		}
 
 		return (
-			<div class={style.envLed} key={props.key}>
+			<div class={style.envLed} key={key}>
 				<p class={`${style.botones}`}
 					onClick={this.changeColor}
-					style={{ backgroundColor: `${cambio}` }}
+					style={{ backgroundColor: `${changeColorClick}` }}
 				/>
 			</div>
 		);

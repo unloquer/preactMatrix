@@ -11,13 +11,15 @@ class Matrix extends Component {
 		this.state = {
 			// ledsState: new Array(64).fill(0),
 			ledsState: { keyid: 0, estadoled: 0 },
-			alerta: ''
+			alertAir: ''
 		};
 
-		this.setAlerts = () => { this.setState({ alerta: this.props.alerta }); };
+		this.setAlerts = () => {
+			this.setState({ alertAir: this.props.colorMatrix }); 
+		};
 		
 		this.reciboEstadoLed = (keyid,estadoled) => {
-			const { alerta, ledsState } = this.state;
+			const { alertAir, ledsState } = this.state;
 			this.setState({
 				ledsState: {
 					...ledsState,
@@ -28,7 +30,7 @@ class Matrix extends Component {
 
 			let matrixEstado ={
 				ledState: ledsState,
-				idMatrix: alerta
+				idMatrix: alertAir
 			};
 
 			this.props.reciboStateLeds(matrixEstado);
@@ -50,15 +52,16 @@ class Matrix extends Component {
 	}
 
 	render(props, state) {
+		// console.log('color de la matrix'. state.alertAir)
 		return (
 			<div class={style.Matrix} key={props.idMatrix}>
 				{
-					Object.keys(arrayLeds).map((value,index) => ( // value no write ???
+					Object.keys(arrayLeds).map((value,index) => (
 						<Led
-							key={index}
+							key={`${index}_${value}`}
 							keyid={index}
 							reciboEstadoLed={this.reciboEstadoLed}
-							alerta={props.alerta}
+							alertAir={props.colorMatrix}
 						/>
 					))
 				}

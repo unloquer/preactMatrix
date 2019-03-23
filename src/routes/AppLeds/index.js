@@ -1,7 +1,3 @@
-// TODO
-// los colores no se estan pintando en cada matrix
-// revisar nombramiento de variables
-
 import { h, Component } from 'preact';
 import RowLeft from './RowLeft';
 import RowRight from './RowRight';
@@ -18,7 +14,7 @@ export default class AppLeds extends Component {
 		  translateValue: 0,
 		  widthMatrix: 0,
 		  matrices: [new Array(64),new Array(64),new Array(64),new Array(64),new Array(64)],
-		  estadomatrix: new Array(64)
+		  statusMatrixPresent: new Array(64)
 		};
 
 		this.alertas = [
@@ -29,11 +25,11 @@ export default class AppLeds extends Component {
 			{ id: 5, color: 'yellow' }
 		];
 
-		this.reciboStateLeds = estadoLeds => {
+		this.receibeStatusMatrix = matrixStatusPresent => {
 			if (this.connection) {
-			  // this.connection.send(estadoLeds.ledsState);
+			  // this.connection.send(matrixStatusPresent.ledsState);
 			}
-			this.setState({ estadomatrix: estadoLeds.ledsState });
+			this.setState({ statusMatrixPresent: matrixStatusPresent.matrixStatus });
 		};
 
 		this.initSocket = () => {
@@ -44,8 +40,9 @@ export default class AppLeds extends Component {
 			this.connection.onmessage = function (e)   { console.log('Server: ', e.data);};
 		};
 
-		this.actualizoMatrices = () => {
-			const data = this.state.estadomatrix;
+		this.updateMatrices = () => {
+			console.log('hice click')
+			const data = this.state.statusMatrixPresent;
 			const matrix = [...this.state.matrices];
 			const actual = this.state.currentIndex;
 		
@@ -71,7 +68,7 @@ export default class AppLeds extends Component {
 			}
 			
 			if (this.connection) {
-			  this.connection.send(matrix);
+			  // this.connection.send(matrix);
 			}
 		};
 
@@ -104,13 +101,13 @@ export default class AppLeds extends Component {
 	}
 
 	componentDidMount(){
-		this.setWidth(this.ref); // access ref matrix
+		this.setWidth(this.ref);
 		// this.initSocket()
 	}
 
 	render(props, state) {
 		// console.log('currentIndex', state.currentIndex);
-		// console.log('translateValue', state.translateValue);
+		console.log('estado matrix', state.statusMatrixPresent);
 		return (
 			<div class={style.home}>
 				<div class={style.content}>
@@ -121,12 +118,11 @@ export default class AppLeds extends Component {
 						}}
 						>
 							{
-								this.alertas.map(alerta => ( // no in alerts in leds ???
-									//console.log('alertas', alerta)
+								this.alertas.map(alerta => (
 									<Matrix
 										key={alerta.id}
 										idMatrix={alerta.color}
-										reciboStateLeds={this.reciboStateLeds}
+										receibeStatusMatrix={this.receibeStatusMatrix}
 										colorMatrix={alerta.color}
 										ref={c => this.ref = c}
 									/>
@@ -134,7 +130,7 @@ export default class AppLeds extends Component {
 						</div>
 						<div style={{ display: 'flex' }}>
 							<RowLeft gotToBack={this.gotToBack} />
-							<EnvioAlerta actualizoMatrices={this.actualizoMatrices} />
+							<EnvioAlerta updateMatrices={this.updateMatrices} />
 							<RowRight gotToNext={this.gotToNext} />
 						</div>
 					</div>

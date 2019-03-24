@@ -21,7 +21,6 @@ div.matrix {
   height: 80%;
   margin-top: 4px;
   width: 98%;
-  margin-left: 4px;
   white-space: pre-wrap;
 }
 
@@ -32,7 +31,7 @@ div:focus {
 .botones {
   width: 35px;
   height: 35px;
-  margin: 2px auto;
+  margin: 2px 3px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -79,14 +78,27 @@ button {
 
 .sliderWrapper {
   position: relative;
-  height: 100%;
-  width: 100%;
+  height: 80%;
+  width: 382px;
+  padding-left: 4px;
 }
 
 .slide {
   display: inline-block;
   height: 100%;
   width: 100%;
+}
+
+.actionsMatrix {
+  display: flex;
+  height: 20%;
+  align-items: center;
+  justify-content: space-around;
+  background: #dad6d4;
+  overflow: hidden;
+  width: calc(100% - 10px);
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
 
 .arrow {
@@ -102,26 +114,14 @@ button {
 }
 
 .nextArrow {
-  position: absolute;
-  top: 87%;
-  right: 25px;
-  z-index: 999;
   cursor: pointer;
 }
 
 .backArrowLeft {
-  position: relative;
-  bottom: 55px;
-  left: 10px;
-  z-index: 999;
   cursor: pointer;
 }
 
 .backArrowRight {
-  position: relative;
-  bottom: 55px;
-  left: 113px;
-  z-index: 999;
   cursor: pointer;
 }
 
@@ -135,10 +135,6 @@ button {
 }
 
 .botonAlerta {
-  position: relative;
-  bottom: 51px;
-  left: 61px;
-  z-index: 999;
   cursor: pointer;
   width: 173px;
   height: 25px;

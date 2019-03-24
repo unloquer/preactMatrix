@@ -106,7 +106,7 @@ export default class AppLeds extends Component {
 	}
 
 	render(props, state) {
-		const { home, content, slider, sliderWrapper } = style;
+		const { home, content, slider, sliderWrapper, actionsMatrix } = style;
 		const { translateValue } = state;
 		// tengo que hacer click para que esto se actualize !!!
 		// si el current index es diferente del anterior actualizo el status matrixPresent
@@ -130,7 +130,7 @@ export default class AppLeds extends Component {
 									/>
 								))}
 						</div>
-						<div style={{ display: 'flex' }}>
+						<div class={actionsMatrix}>
 							<RowLeft gotToBack={this.gotToBack} />
 							<EnvioAlerta updateMatrices={this.updateMatrices} />
 							<RowRight gotToNext={this.gotToNext} />

@@ -6,17 +6,17 @@ class Led extends Component {
 		super(props);
 		this.state = {
 			ledId: 0,
-			ledOnnOrOff: 1,
+			ledOnOrOff: 1,
 			alertAir: ' ',
 			colorLedOptions: { }
 		};
 
 		this.changeColor = () => {
-			const { ledOnnOrOff, colorLedOptions, ledId } = this.state;
+			const { ledOnOrOff, colorLedOptions, ledId } = this.state;
 			this.setState({
-				ledOnnOrOff: ( ledOnnOrOff + 1 ) % (colorLedOptions.length === undefined ? 2 : colorLedOptions.length)
+				ledOnOrOff: ( ledOnOrOff + 1 ) % (colorLedOptions.length === undefined ? 2 : colorLedOptions.length)
 			});
-			this.props.receibeStatusLed(ledId, ledOnnOrOff);
+			this.props.receibeStatusLed(ledId, ledOnOrOff);
 		};
         
 		this.setColorLed = () => {
@@ -28,8 +28,8 @@ class Led extends Component {
 				this.setState({
 					colorLedOptions: {
 						...colorLedOptions,
-						colorOne: 'red',
-						colorTwo: 'transparent'
+						ledOff: 'transparent',
+						ledOn: 'red'
 					}
 				});
 			}
@@ -37,8 +37,8 @@ class Led extends Component {
 				this.setState({
 					colorLedOptions: {
 						...colorLedOptions,
-						colorOne: 'green',
-						colorTwo: 'transparent'
+						ledOff: 'transparent',
+						ledOn: 'green'
 					}
 				});
 			}
@@ -46,8 +46,8 @@ class Led extends Component {
 				this.setState({
 					colorLedOptions: {
 						...colorLedOptions,
-						colorOne: 'yellow',
-						colorTwo: 'transparent'
+						ledOff: 'transparent',
+						ledOn: 'yellow'
 					}
 				});
 			}
@@ -55,8 +55,8 @@ class Led extends Component {
 				this.setState({
 					colorLedOptions: {
 						...colorLedOptions,
-						colorOne: 'orange',
-						colorTwo: 'transparent'
+						ledOff: 'transparent',
+						ledOn: 'orange'
 					}
 				});
 			}
@@ -64,8 +64,8 @@ class Led extends Component {
 				this.setState({
 					colorLedOptions: {
 						...colorLedOptions,
-						colorOne: 'violet',
-						colorTwo: 'transparent'
+						ledOff: 'transparent',
+						ledOn: 'violet'
 					}
 				});
 			}
@@ -75,15 +75,15 @@ class Led extends Component {
 	componentWillMount() { this.setColorLed(); }
 
 	render(props, state) {
-		const { colorLedOptions, ledOnnOrOff } = state;
+		const { colorLedOptions, ledOnOrOff } = state;
 		const { key } = props;
 		let changeColorClick = '';
 		
-		if ( ledOnnOrOff === 0 ) {
-			changeColorClick = `${colorLedOptions.colorOne}`;
+		if ( ledOnOrOff === 1 ) {
+			changeColorClick = `${colorLedOptions.ledOff}`;
 		}
 		else {
-			changeColorClick = `${colorLedOptions.colorTwo}`;
+			changeColorClick = `${colorLedOptions.ledOn}`;
 		}
 
 		return (

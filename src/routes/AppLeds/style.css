@@ -6,7 +6,7 @@
 
 .content {
   width: 370px;
-  border: 5px solid #38935d;
+  border: 5px solid #7c2ddc;
   margin: 10px auto;
   padding: 0;
 }
@@ -15,7 +15,7 @@
   font-family: "arial", sans-serif;
 }
 
-div.Matrix {
+div.matrix {
   display: inline-block;
   height: 100%;
   padding: 2px 2px;
@@ -40,12 +40,11 @@ div:focus {
 .envLed {
   width: 40px;
   height: 40px;
-  background: black;
+  background: #000000c7;
   display: inline-block;
   margin: 0px 2px;
   cursor: initial;
-  border: 1px solid black;
-  border-radius: 8px;
+  border-radius: 14px;
 }
 
 .footer {

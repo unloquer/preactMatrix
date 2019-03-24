@@ -13,11 +13,11 @@ export default class AppLeds extends Component {
 		  currentIndex: 0,
 		  translateValue: 0,
 		  widthMatrix: 0,
-		  matrices: [new Array(64),new Array(64),new Array(64),new Array(64),new Array(64)],
-		  statusMatrixPresent: new Array(64)
+		  statusAllMatrix: [new Array(64),new Array(64),new Array(64),new Array(64),new Array(64)],
+		  statusMatrixPresent: new Array(64).fill(0)
 		};
 
-		this.alertas = [
+		this.alertsAirQuality = [
 			{ id: 1, color: 'green'  },
 			{ id: 2, color: 'orange' },
 			{ id: 3, color: 'violet' },
@@ -41,35 +41,35 @@ export default class AppLeds extends Component {
 		};
 
 		this.updateMatrices = () => {
-			console.log('hice click')
-			const data = this.state.statusMatrixPresent;
-			const matrix = [...this.state.matrices];
-			const actual = this.state.currentIndex;
+			const { statusMatrixPresent, currentMatrix, statusAllMatrix } = this.state;
+			const allMatrixUpdate = [...statusAllMatrix];
 		
-			if ( actual === 0) {
-			  matrix[0] = data;
-			  this.setState({ matrices: matrix });
+			if ( currentMatrix === 0) {
+			  allMatrixUpdate[0] = statusMatrixPresent;
+			  this.setState({ statusAllMatrix: allMatrixUpdate });
 			}
-			else if (actual === 1) {
-			  matrix[1] = data;
-			  this.setState({ matrices: matrix });
+			else if (currentMatrix === 1) {
+			  allMatrixUpdate[1] = statusMatrixPresent;
+			  this.setState({ statusAllMatrix: allMatrixUpdate });
 			}
-			else if (actual === 2) {
-			  matrix[2] = data;
-			  this.setState({ matrices: matrix });
+			else if (currentMatrix === 2) {
+			  allMatrixUpdate[2] = statusMatrixPresent;
+			  this.setState({ statusAllMatrix: allMatrixUpdate });
 			}
-			else if (actual === 3) {
-			  matrix[3] = data;
-			  this.setState({ matrices: matrix });
+			else if (currentMatrix === 3) {
+			  allMatrixUpdate[3] = statusMatrixPresent;
+			  this.setState({ statusAllMatrix: allMatrixUpdate });
 			}
-			else if (actual === 4) {
-			  matrix[4] = data;
-			  this.setState({ matrices: matrix });
+			else if (currentMatrix === 4) {
+			  allMatrixUpdate[4] = statusMatrixPresent;
+			  this.setState({ statusAllMatrix: allMatrixUpdate });
 			}
 			
 			if (this.connection) {
+				console.log('socket!');
 			  // this.connection.send(matrix);
 			}
+			console.log('Updated all matrix sockets!');
 		};
 
 		this.gotToBack = () => {
@@ -81,7 +81,7 @@ export default class AppLeds extends Component {
 		};
 		
 		this.gotToNext = () => {
-			if (this.state.currentIndex === this.alertas.length - 1){
+			if (this.state.currentIndex === this.alertsAirQuality.length - 1){
 				return this.setState({
 					currentIndex: 0,
 					translateValue: 0
@@ -106,22 +106,24 @@ export default class AppLeds extends Component {
 	}
 
 	render(props, state) {
-		// console.log('currentIndex', state.currentIndex);
-		console.log('estado matrix', state.statusMatrixPresent);
+		const { home, content, slider, sliderWrapper } = style;
+		const { translateValue } = state;
+		// tengo que hacer click para que esto se actualize !!!
+		// si el current index es diferente del anterior actualizo el status matrixPresent
+		console.log('estado matrix', state.statusMatrixPresent); 
 		return (
-			<div class={style.home}>
-				<div class={style.content}>
-					<div class={style.slider}>
-						<div class={style.sliderWrapper} style={{
-							transform: `translateX(${state.translateValue}px)`,
+			<div class={home}>
+				<div class={content}>
+					<div class={slider}>
+						<div class={sliderWrapper} style={{
+							transform: `translateX(${translateValue}px)`,
 							transition: 'transform ease-out 0.45s'
 						}}
 						>
 							{
-								this.alertas.map(alerta => (
+								this.alertsAirQuality.map(alerta => (
 									<Matrix
-										key={alerta.id}
-										idMatrix={alerta.color}
+										key={`matrix-${alerta.color}-${alerta.id}`}
 										receibeStatusMatrix={this.receibeStatusMatrix}
 										colorMatrix={alerta.color}
 										ref={c => this.ref = c}

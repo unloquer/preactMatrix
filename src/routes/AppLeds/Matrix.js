@@ -16,27 +16,27 @@ class Matrix extends Component {
 			this.setState({ alertAir: this.props.colorMatrix });
 		};
 		
-		this.receibeStatusLed = (ledkeyId,ledOnnOrOff) => {
+		this.receibeStatusLed = (ledkeyId,ledOnOrOff) => {
 			const { alertAir, matrixStatus } = this.state;
-			this.setState({ matrixStatus: R.update(ledkeyId, ledOnnOrOff, matrixStatus) });
+			this.setState({ matrixStatus: R.update(ledkeyId, ledOnOrOff, matrixStatus) });
 			const matrixStatusPresent = {
-				matrixStatus: R.update(ledkeyId, ledOnnOrOff, matrixStatus),
+				matrixStatus: R.update(ledkeyId, ledOnOrOff, matrixStatus),
 				idMatrix: alertAir
 			};
 			this.props.receibeStatusMatrix(matrixStatusPresent);
 		};
 	}
-
+	
 	componentDidMount () { this.setAlerts(); }
 
 	render(props, state) {
 		return (
-			<div class={style.Matrix} key={props.idMatrix}>
+			<div class={style.matrix} key={props.colorMatrix}>
 				{
-					arrayLeds.map((value,index) => (
+					arrayLeds.map((value) => (
 						<Led
-							key={`${this.state.alertAir}-${value.keyNameId}`}
-							keyIDLED={index}
+							key={`${state.alertAir}-${value.keyNameId}`}
+							keyIDLED={value.keyNameId}
 							receibeStatusLed={this.receibeStatusLed}
 							alertAir={props.colorMatrix}
 						/>

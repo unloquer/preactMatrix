@@ -6,9 +6,10 @@
 
 .content {
   width: 370px;
-  border: 5px solid #7c2ddc;
+  border: 5px solid #2d4bdc;
   margin: 10px auto;
   padding: 0;
+  border-radius: 6%;
 }
 
 #root {
@@ -17,10 +18,10 @@
 
 div.matrix {
   display: inline-block;
-  height: 100%;
-  padding: 2px 2px;
-  width: 100%;
-  position: relative;
+  height: 80%;
+  margin-top: 4px;
+  width: 98%;
+  margin-left: 4px;
   white-space: pre-wrap;
 }
 
@@ -29,18 +30,18 @@ div:focus {
 }
 
 .botones {
-  width: 26px;
-  height: 26px;
-  margin: 7px auto;
+  width: 35px;
+  height: 35px;
+  margin: 2px auto;
   border-radius: 50%;
   cursor: pointer;
-  background: white;
 }
 
 .envLed {
   width: 40px;
   height: 40px;
-  background: #000000c7;
+  background: url('../../assets/img/ledIcon.png') no-repeat center center;
+  background-size: contain;
   display: inline-block;
   margin: 0px 2px;
   cursor: initial;
@@ -71,7 +72,6 @@ button {
 .slider {
   position: relative;
   width: 370px;
-  margin: 0 auto;
   height: 434px;
   overflow: hidden;
   white-space: nowrap;

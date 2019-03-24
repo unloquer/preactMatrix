@@ -1,5 +1,6 @@
 import { Component } from 'preact';
 import style from './style';
+import ledIcon from '../../assets/img/ledIcon.png';
 
 class Led extends Component {
 	constructor(props) {
@@ -29,7 +30,7 @@ class Led extends Component {
 					colorLedOptions: {
 						...colorLedOptions,
 						ledOff: 'transparent',
-						ledOn: 'red'
+						ledOn: '#ff0000bd'
 					}
 				});
 			}
@@ -38,7 +39,7 @@ class Led extends Component {
 					colorLedOptions: {
 						...colorLedOptions,
 						ledOff: 'transparent',
-						ledOn: 'green'
+						ledOn: '#008000bd'
 					}
 				});
 			}
@@ -47,7 +48,7 @@ class Led extends Component {
 					colorLedOptions: {
 						...colorLedOptions,
 						ledOff: 'transparent',
-						ledOn: 'yellow'
+						ledOn: '#ffff00bd'
 					}
 				});
 			}
@@ -56,7 +57,7 @@ class Led extends Component {
 					colorLedOptions: {
 						...colorLedOptions,
 						ledOff: 'transparent',
-						ledOn: 'orange'
+						ledOn: '#ffa500bd'
 					}
 				});
 			}
@@ -65,7 +66,7 @@ class Led extends Component {
 					colorLedOptions: {
 						...colorLedOptions,
 						ledOff: 'transparent',
-						ledOn: 'violet'
+						ledOn: '#ee82eebd' // violet
 					}
 				});
 			}
